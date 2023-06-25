@@ -15,6 +15,8 @@ int main()
   int axe_x{400};
   int axe_y{0};
 
+  int direction{10};
+
   SetTargetFPS(60);
   // window popup constantly open with this while loop
   while (!WindowShouldClose())
@@ -30,7 +32,11 @@ int main()
     DrawRectangle(axe_x, axe_y, 50, 50, RED);
 
     // move the axe
-    axe_y += 10;
+    axe_y += direction;
+    if (axe_y > 400 || axe_y < 0)
+    {
+      direction = -direction;
+    }
 
     if (IsKeyDown(KEY_D) && circle_x < 775)
     {
