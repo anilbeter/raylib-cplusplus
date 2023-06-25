@@ -28,7 +28,11 @@ int main()
   int direction{10};
 
   SetTargetFPS(60);
-  bool collision_with_axe = true;
+  bool collision_with_axe =
+      (b_axe_y >= u_circle_y) &&
+      (u_axe_y <= b_circle_y) &&
+      (r_axe_x >= l_circle_x) &&
+      (l_axe_x <= r_circle_x);
   // window popup constantly open with this while loop
   while (!WindowShouldClose())
   {
@@ -44,8 +48,22 @@ int main()
     {
       // Game logic begins
 
-      // int width{800};
-      // int height{450};
+      // update the edges
+      l_circle_x = circle_x - circle_r;
+      r_circle_x = circle_x + circle_r;
+      u_circle_y = circle_y - circle_r;
+      b_circle_y = circle_y + circle_r;
+      l_axe_x = axe_x;
+      r_axe_x = axe_x + axe_length;
+      u_axe_y = axe_y;
+      b_axe_y = axe_y + axe_length;
+      // update collision with axe
+      collision_with_axe =
+          (b_axe_y >= u_circle_y) &&
+          (u_axe_y <= b_circle_y) &&
+          (r_axe_x >= l_circle_x) &&
+          (l_axe_x <= r_circle_x);
+
       DrawCircle(circle_x, circle_y, circle_r, BLUE);
       DrawRectangle(axe_x, axe_y, axe_length, axe_length, RED);
 
