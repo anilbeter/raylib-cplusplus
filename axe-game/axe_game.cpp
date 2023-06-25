@@ -22,11 +22,11 @@ int main()
 
     DrawCircle(circle_x, circle_y, circle_r, BLUE);
 
-    if (IsKeyDown(KEY_D))
+    if (IsKeyDown(KEY_D) && circle_x < 325)
     {
       circle_x = circle_x + 10;
     }
-    if (IsKeyDown(KEY_A))
+    if (IsKeyDown(KEY_A) && circle_x > 25)
     {
       circle_x -= 10;
     }
