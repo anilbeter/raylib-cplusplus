@@ -8,5 +8,8 @@ int main()
   // window popup constantly open with this while loop
   while (true)
   {
+    BeginDrawing();
+    ClearBackground(RED);
+    EndDrawing();
   }
 }
