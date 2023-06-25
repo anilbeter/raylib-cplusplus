@@ -28,36 +28,43 @@ int main()
   int direction{10};
 
   SetTargetFPS(60);
+  bool collision_with_axe = true;
   // window popup constantly open with this while loop
   while (!WindowShouldClose())
   {
+
     BeginDrawing();
     ClearBackground(WHITE);
 
-    // Game logic begins
-
-    // int width{800};
-    // int height{450};
-    DrawCircle(circle_x, circle_y, circle_r, BLUE);
-    DrawRectangle(axe_x, axe_y, axe_length, axe_length, RED);
-
-    // move the axe
-    axe_y += direction;
-    if (axe_y > height || axe_y < 0)
+    if (collision_with_axe)
     {
-      direction = -direction;
+      DrawText("Game Over!", 340, 225, 20, RED);
     }
-
-    if (IsKeyDown(KEY_D) && circle_x < width)
+    else
     {
-      circle_x = circle_x + 10;
-    }
-    if (IsKeyDown(KEY_A) && circle_x > 0)
-    {
-      circle_x -= 10;
-    }
+      // Game logic begins
 
-    // Game logic ends
+      // int width{800};
+      // int height{450};
+      DrawCircle(circle_x, circle_y, circle_r, BLUE);
+      DrawRectangle(axe_x, axe_y, axe_length, axe_length, RED);
+
+      // move the axe
+      axe_y += direction;
+      if (axe_y > height || axe_y < 0)
+      {
+        direction = -direction;
+      }
+
+      if (IsKeyDown(KEY_D) && circle_x < width)
+      {
+        circle_x = circle_x + 10;
+      }
+      if (IsKeyDown(KEY_A) && circle_x > 0)
+      {
+        circle_x -= 10;
+      }
+    }
     EndDrawing();
   }
 }
