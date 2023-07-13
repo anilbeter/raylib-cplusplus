@@ -18,6 +18,7 @@ int main()
   int velocity{0};
 
   bool isInAir = true;
+  const int jumpVel{-22};
 
   while (!WindowShouldClose())
   {
@@ -40,7 +41,7 @@ int main()
 
     if (IsKeyPressed(KEY_SPACE) && !isInAir)
     {
-      velocity -= 10;
+      velocity += jumpVel;
       isInAir = true;
     }
 
