@@ -17,6 +17,8 @@ int main()
   int posY{windowHeight - height};
   int velocity{0};
 
+  bool isInAir = true;
+
   while (!WindowShouldClose())
   {
     // Start Drawing
@@ -28,6 +30,7 @@ int main()
     {
       // rectangle is on the ground
       velocity = 0;
+      isInAir = false;
     }
     else
     {
@@ -35,9 +38,10 @@ int main()
       velocity += gravity;
     }
 
-    if (IsKeyPressed(KEY_SPACE))
+    if (IsKeyPressed(KEY_SPACE) && !isInAir)
     {
       velocity -= 10;
+      isInAir = true;
     }
 
     // update position
