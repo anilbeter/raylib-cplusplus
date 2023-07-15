@@ -7,8 +7,8 @@ int main()
   SetTargetFPS(60);
   InitWindow(windowWidth, windowHeight, "BURNING UP!");
 
-  // acceleration due to gravity (pixels/frame)/frame
-  const int gravity{1};
+  // acceleration due to gravity (pixels/s)/frame
+  const int gravity{1'000};
 
   Texture2D scarfy = LoadTexture("textures/scarfy.png");
   Rectangle scarfyRec;
@@ -23,10 +23,15 @@ int main()
   int velocity{0};
 
   bool isInAir = true;
-  const int jumpVel{-22};
+
+  // pixels/s
+  const int jumpVel{-600};
 
   while (!WindowShouldClose())
   {
+    // delta time
+    const float dT{GetFrameTime()};
+
     // Start Drawing
     BeginDrawing();
     ClearBackground(WHITE);
@@ -41,7 +46,7 @@ int main()
     else
     {
       // rectange is in the air
-      velocity += gravity;
+      velocity += gravity * dT;
     }
 
     if (IsKeyPressed(KEY_SPACE) && !isInAir)
@@ -51,7 +56,7 @@ int main()
     }
 
     // update position
-    scarfyPos.y += velocity;
+    scarfyPos.y += velocity * dT;
 
     DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
 
