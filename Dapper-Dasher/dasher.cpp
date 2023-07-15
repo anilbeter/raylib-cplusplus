@@ -22,6 +22,11 @@ int main()
 
   int velocity{0};
 
+  // animation frame
+  int frame{};
+  float updateTime{1.0 / 12.0};
+  float runningTime{};
+
   bool isInAir = true;
 
   // pixels/s
@@ -57,6 +62,20 @@ int main()
 
     // update position
     scarfyPos.y += velocity * dT;
+
+    // update running time
+    runningTime += dT;
+    if (runningTime >= updateTime)
+    {
+      runningTime = 0;
+      // update animation frame
+      scarfyRec.x = frame * scarfyRec.width;
+      frame++;
+      if (frame > 5)
+      {
+        frame = 0;
+      }
+    }
 
     DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
 
