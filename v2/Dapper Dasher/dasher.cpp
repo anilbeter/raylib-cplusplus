@@ -18,6 +18,9 @@ int main()
   int posY = windowHeight - height;
   int velocity = 0;
 
+  bool isInAir;
+  const int jumpVel = -22;
+
   SetTargetFPS(60);
   while (!WindowShouldClose())
   {
@@ -29,18 +32,20 @@ int main()
     {
       // rectangle is on ground
       velocity = 0;
+      isInAir = false;
     }
     else
     {
       // rectangle is in the air
       // apply gravity
       velocity += gravity;
+      isInAir = true;
     }
 
     DrawRectangle(windowWidth / 2, posY, width, height, RED);
-    if (IsKeyPressed(KEY_SPACE))
+    if (IsKeyPressed(KEY_SPACE) && !isInAir)
     {
-      velocity -= 10;
+      velocity += jumpVel;
     }
 
     // update position
