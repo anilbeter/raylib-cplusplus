@@ -117,15 +117,18 @@ int main()
     // update running time
     runningTime += dT;
     // update scarfy's animation frame
-    if (runningTime >= updateTime && !isInAir)
+    if (!isInAir)
     {
-      runningTime = 0.0f;
-      // update animation frame
-      scarfyRec.x = frame * scarfyRec.width;
-      frame++;
-      if (frame > 5)
+      if (runningTime >= updateTime)
       {
-        frame = 0;
+        runningTime = 0.0f;
+        // update animation frame
+        scarfyRec.x = frame * scarfyRec.width;
+        frame++;
+        if (frame > 5)
+        {
+          frame = 0;
+        }
       }
     }
 
