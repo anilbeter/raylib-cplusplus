@@ -27,6 +27,12 @@ int main()
   // jump velocity (pixels/s)
   const int jumpVel = -600;
 
+  // animation frame
+  int frame;
+  // amount of time before we update the animation frame
+  const float updateTime = 1.0f / 12.0f;
+  float runningTime;
+
   SetTargetFPS(60);
   while (!WindowShouldClose())
   {
@@ -49,6 +55,20 @@ int main()
       // apply gravity
       velocity += gravity * dT;
       isInAir = true;
+    }
+
+    // update running time
+    runningTime += dT;
+    if (runningTime >= updateTime)
+    {
+      runningTime = 0.0f;
+      // update animation frame
+      scarfyRec.x = frame * scarfyRec.width;
+      frame++;
+      if (frame > 5)
+      {
+        frame = 0;
+      }
     }
 
     DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
