@@ -38,7 +38,12 @@ int main()
   // jump velocity (pixels/s)
   const int jumpVel = -600;
 
-  // animation frame
+  // nebula animation frame
+  int nebFrame = 0;
+  const float nebUpdateTime = 1.0f / 12.0f;
+  float nebRunningTime = 0;
+
+  // scarfy animation frame
   int frame;
   // amount of time before we update the animation frame
   const float updateTime = 1.0f / 12.0f;
@@ -70,6 +75,7 @@ int main()
 
     // update running time
     runningTime += dT;
+    // update scarfy's animation frame
     if (runningTime >= updateTime && !isInAir)
     {
       runningTime = 0.0f;
@@ -79,6 +85,19 @@ int main()
       if (frame > 5)
       {
         frame = 0;
+      }
+    }
+
+    // update running time for nebula
+    nebRunningTime += dT;
+    if (nebRunningTime >= nebUpdateTime)
+    {
+      nebRunningTime = 0.0f;
+      nebRec.x = nebFrame * nebRec.width;
+      nebFrame++;
+      if (nebFrame > 7)
+      {
+        nebFrame = 0;
       }
     }
 
