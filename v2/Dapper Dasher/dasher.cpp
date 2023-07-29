@@ -19,7 +19,7 @@ int main()
       windowHeight - (nebRec.height)};
 
   // nebula X velocity (pixels/second)
-  int nebVel{-600};
+  int nebVel{-200};
 
   // scarfy variables
   Texture2D scarfy = LoadTexture("textures/scarfy.png");
