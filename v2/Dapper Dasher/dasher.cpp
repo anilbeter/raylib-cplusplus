@@ -70,7 +70,7 @@ int main()
 
     // update running time
     runningTime += dT;
-    if (runningTime >= updateTime)
+    if (runningTime >= updateTime && !isInAir)
     {
       runningTime = 0.0f;
       // update animation frame
