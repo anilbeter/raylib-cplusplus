@@ -18,6 +18,9 @@ int main()
       windowWidth,
       windowHeight - (nebRec.height)};
 
+  Rectangle neb2Rec{0.0, 0.0, nebula.width / 8, nebula.height / 8};
+  Vector2 neb2Pos{windowWidth + 300, windowHeight - (nebRec.height)};
+
   // nebula X velocity (pixels/second)
   int nebVel{-200};
 
@@ -42,6 +45,10 @@ int main()
   int nebFrame = 0;
   const float nebUpdateTime = 1.0f / 12.0f;
   float nebRunningTime = 0;
+
+  int neb2Frame{};
+  const float neb2UpdateTime{1.0 / 16.0};
+  float neb2RunningTime{};
 
   // scarfy animation frame
   int frame;
@@ -101,8 +108,23 @@ int main()
       }
     }
 
+    // update running time for nebula
+    neb2RunningTime += dT;
+    if (neb2RunningTime >= neb2UpdateTime)
+    {
+      neb2RunningTime = 0.0f;
+      neb2Rec.x = neb2Frame * neb2Rec.width;
+      neb2Frame++;
+      if (neb2Frame > 7)
+      {
+        neb2Frame = 0;
+      }
+    }
+
     // draw nebula
     DrawTextureRec(nebula, nebRec, nebPos, WHITE);
+    // draw second nebula
+    DrawTextureRec(nebula, neb2Rec, neb2Pos, RED);
 
     // draw scarfy
     DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
@@ -113,6 +135,8 @@ int main()
 
     // update nebula position
     nebPos.x += nebVel * dT;
+    // update second nebula position
+    neb2Pos.x += nebVel * dT;
 
     // update scarfy position
     scarfyPos.y += velocity * dT;
