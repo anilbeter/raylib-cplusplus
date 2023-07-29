@@ -22,10 +22,29 @@ int main()
 
   // nebula variables
   Texture2D nebula = LoadTexture("textures/12_nebula_spritesheet.png");
+
+  // AnimData for nebula
+  AnimData nebData{
+      {0.0, 0.0, nebula.width / 8, nebula.height / 8}, // Rectangle rec
+      {windowWidth, windowHeight - nebula.height / 8}, // Vector2 pos
+      0,                                               // int frame
+      1.0 / 12.0,                                      // float updateTime
+      0                                                // float runningTime
+  };
+
+  AnimData neb2Data{
+      {0.0, 0.0, nebula.width / 8, nebula.height / 8},
+      {windowWidth + 300, windowHeight - nebula.height},
+      0,
+      1.0 / 16.0,
+      0.0};
+
   Rectangle nebRec{0.0, 0.0, nebula.width / 8, nebula.height / 8};
-  Vector2 nebPos{
-      windowWidth,
-      windowHeight - (nebRec.height)};
+  Vector2 nebPos{windowWidth, windowHeight - (nebRec.height)};
+  // nebula animation frame
+  int nebFrame = 0;
+  const float nebUpdateTime = 1.0f / 12.0f;
+  float nebRunningTime = 0;
 
   Rectangle neb2Rec{0.0, 0.0, nebula.width / 8, nebula.height / 8};
   Vector2 neb2Pos{windowWidth + 300, windowHeight - (nebRec.height)};
@@ -60,11 +79,6 @@ int main()
   bool isInAir;
   // jump velocity (pixels/s)
   const int jumpVel = -600;
-
-  // nebula animation frame
-  int nebFrame = 0;
-  const float nebUpdateTime = 1.0f / 12.0f;
-  float nebRunningTime = 0;
 
   int neb2Frame{};
   const float neb2UpdateTime{1.0 / 16.0};
