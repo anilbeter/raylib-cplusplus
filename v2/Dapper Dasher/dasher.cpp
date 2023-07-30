@@ -94,10 +94,16 @@ int main()
     ClearBackground(WHITE);
 
     bgX -= 20 * dT;
+    if (bgX <= -background.width * 2)
+    {
+      bgX = 0.0;
+    }
 
     // draw the background
-    Vector2 bgPos{bgX, 0.0};
-    DrawTextureEx(background, bgPos, 0.0, 2.0, WHITE);
+    Vector2 bg1Pos{bgX, 0.0};
+    DrawTextureEx(background, bg1Pos, 0.0, 2.0, WHITE);
+    Vector2 bg2Pos{bgX + background.width * 2, 0.0}; // 2 ile çarpıyorum çünkü DrawTextureEx de scale i 2 olarak aldım (2.0)
+    DrawTextureEx(background, bg2Pos, 0.0, 2.0, WHITE);
 
     // delta time (time since last frame)
 
