@@ -9,6 +9,11 @@ struct AnimData
   float runningTime;
 };
 
+bool isOnGround(AnimData data, int windowHeight)
+{
+  return data.pos.y >= windowHeight - data.rec.height;
+}
+
 int main()
 {
   int windowDimensions[2];
@@ -105,7 +110,7 @@ int main()
     const float dT = GetFrameTime();
 
     // perform ground check
-    if (scarfyData.pos.y >= windowDimensions[1] - scarfyData.rec.height)
+    if (isOnGround(scarfyData, windowDimensions[1]))
     {
       // rectangle is on ground
       velocity = 0;
