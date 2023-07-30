@@ -11,11 +11,14 @@ struct AnimData
 
 int main()
 {
+  int windowDimensions[2];
+  windowDimensions[0] = 512;
+  windowDimensions[1] = 380;
 
   const int windowWidth = 512;
   const int windowHeight = 380;
 
-  InitWindow(windowWidth, windowHeight, "Dapper Dasher");
+  InitWindow(windowDimensions[0], windowDimensions[1], "Dapper Dasher");
 
   // acceleration due to gravity (pixels/s)/s
   const int gravity = 1'000;
