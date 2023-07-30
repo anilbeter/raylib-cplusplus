@@ -65,14 +65,14 @@ int main()
   scarfyData.updateTime = 1.0 / 12.0;
   scarfyData.runningTime = 0.0;
 
-  Rectangle scarfyRec;
-  scarfyRec.width = scarfy.width / 6;
-  scarfyRec.height = scarfy.height;
-  scarfyRec.x = 0;
-  scarfyRec.y = 0;
-  Vector2 scarfyPos;
-  scarfyPos.x = (windowWidth / 2) - scarfyRec.width / 2;
-  scarfyPos.y = windowHeight - scarfyRec.height;
+  // Rectangle scarfyRec;
+  // scarfyRec.width = scarfy.width / 6;
+  // scarfyRec.height = scarfy.height;
+  // scarfyRec.x = 0;
+  // scarfyRec.y = 0;
+  // Vector2 scarfyPos;
+  // scarfyPos.x = (windowWidth / 2) - scarfyRec.width / 2;
+  // scarfyPos.y = windowHeight - scarfyRec.height;
 
   int velocity = 0;
 
@@ -85,10 +85,10 @@ int main()
   float neb2RunningTime{};
 
   // scarfy animation frame
-  int frame;
+  // int frame;
   // amount of time before we update the animation frame
-  const float updateTime = 1.0f / 12.0f;
-  float runningTime;
+  // const float updateTime = 1.0f / 12.0f;
+  // float runningTime;
 
   SetTargetFPS(60);
   while (!WindowShouldClose())
@@ -100,7 +100,7 @@ int main()
     const float dT = GetFrameTime();
 
     // perform ground check
-    if (scarfyPos.y >= windowHeight - scarfyRec.height)
+    if (scarfyData.pos.y >= windowHeight - scarfyData.rec.height)
     {
       // rectangle is on ground
       velocity = 0;
@@ -115,19 +115,19 @@ int main()
     }
 
     // update running time
-    runningTime += dT;
+    scarfyData.runningTime += dT;
     // update scarfy's animation frame
     if (!isInAir)
     {
-      if (runningTime >= updateTime)
+      if (scarfyData.runningTime >= scarfyData.updateTime)
       {
-        runningTime = 0.0f;
+        scarfyData.runningTime = 0.0f;
         // update animation frame
-        scarfyRec.x = frame * scarfyRec.width;
-        frame++;
-        if (frame > 5)
+        scarfyData.rec.x = scarfyData.frame * scarfyData.rec.width;
+        scarfyData.frame++;
+        if (scarfyData.frame > 5)
         {
-          frame = 0;
+          scarfyData.frame = 0;
         }
       }
     }
@@ -164,7 +164,7 @@ int main()
     DrawTextureRec(nebula, neb2Rec, neb2Pos, RED);
 
     // draw scarfy
-    DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
+    DrawTextureRec(scarfy, scarfyData.rec, scarfyData.pos, WHITE);
     if (IsKeyPressed(KEY_SPACE) && !isInAir)
     {
       velocity += jumpVel;
@@ -176,7 +176,7 @@ int main()
     neb2Pos.x += nebVel * dT;
 
     // update scarfy position
-    scarfyPos.y += velocity * dT;
+    scarfyData.pos.y += velocity * dT;
 
     EndDrawing();
   }
