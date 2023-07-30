@@ -38,9 +38,6 @@ int main()
   windowDimensions[0] = 512;
   windowDimensions[1] = 380;
 
-  // const int windowWidth = 512;
-  // const int windowHeight = 380;
-
   InitWindow(windowDimensions[0], windowDimensions[1], "Dapper Dasher");
 
   // acceleration due to gravity (pixels/s)/s
@@ -65,22 +62,6 @@ int main()
     nebulae[i].pos.x = windowDimensions[0] + i * 300;
   }
 
-  // nebulae[0].pos.x = windowDimensions[0];
-  // nebulae[1].pos.x = windowDimensions[0] + 300;
-  // nebulae[2].pos.x = windowDimensions[0] + 600;
-
-  // Rectangle nebRec{0.0, 0.0, nebula.width / 8, nebula.height / 8};
-  // Vector2 nebPos{windowWidth, windowHeight - (nebRec.height)};
-  // int nebFrame = 0;
-  // const float nebUpdateTime = 1.0f / 12.0f;
-  // float nebRunningTime = 0;
-
-  // Rectangle neb2Rec{0.0, 0.0, nebula.width / 8, nebula.height / 8};
-  // Vector2 neb2Pos{windowWidth + 300, windowHeight - (nebRec.height)};
-  // int neb2Frame{};
-  // const float neb2UpdateTime{1.0 / 16.0};
-  // float neb2RunningTime{};
-
   // nebula X velocity (pixels/second)
   int nebVel{-200};
 
@@ -97,35 +78,28 @@ int main()
   scarfyData.updateTime = 1.0 / 6.0;
   scarfyData.runningTime = 0.0;
 
-  // Rectangle scarfyRec;
-  // scarfyRec.width = scarfy.width / 6;
-  // scarfyRec.height = scarfy.height;
-  // scarfyRec.x = 0;
-  // scarfyRec.y = 0;
-  // Vector2 scarfyPos;
-  // scarfyPos.x = (windowWidth / 2) - scarfyRec.width / 2;
-  // scarfyPos.y = windowHeight - scarfyRec.height;
-
   int velocity = 0;
+  Texture2D background = LoadTexture("textures/far-buildings.png");
+  float bgX{};
 
   bool isInAir;
   // jump velocity (pixels/s)
   const int jumpVel = -600;
 
-  // scarfy animation frame
-  // int frame;
-  // amount of time before we update the animation frame
-  // const float updateTime = 1.0f / 12.0f;
-  // float runningTime;
-
   SetTargetFPS(60);
   while (!WindowShouldClose())
   {
+    const float dT = GetFrameTime();
     BeginDrawing();
     ClearBackground(WHITE);
 
+    bgX -= 20 * dT;
+
+    // draw the background
+    Vector2 bgPos{bgX, 0.0};
+    DrawTextureEx(background, bgPos, 0.0, 2.0, WHITE);
+
     // delta time (time since last frame)
-    const float dT = GetFrameTime();
 
     // perform ground check
     if (isOnGround(scarfyData, windowDimensions[1]))
@@ -166,11 +140,6 @@ int main()
       DrawTextureRec(nebula, nebulae[i].rec, nebulae[i].pos, WHITE);
     }
 
-    // draw nebula
-    // DrawTextureRec(nebula, nebulae[0].rec, nebulae[0].pos, WHITE);
-    // draw second nebula
-    // DrawTextureRec(nebula, nebulae[1].rec, nebulae[1].pos, RED);
-
     // draw scarfy
     DrawTextureRec(scarfy, scarfyData.rec, scarfyData.pos, WHITE);
     if (IsKeyPressed(KEY_SPACE) && !isInAir)
@@ -196,5 +165,6 @@ int main()
   }
   UnloadTexture(scarfy);
   UnloadTexture(nebula);
+  UnloadTexture(background);
   CloseWindow();
 }
