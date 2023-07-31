@@ -92,6 +92,7 @@ int main()
   bool isInAir;
   // jump velocity (pixels/s)
   const int jumpVel = -600;
+  bool collision = false;
 
   SetTargetFPS(60);
   while (!WindowShouldClose())
@@ -171,14 +172,41 @@ int main()
       }
     }
 
-    for (int i = 0; i < sizeOfNebulae; i++)
+    for (AnimData nebula : nebulae)
     {
-      // draw each nebula
-      DrawTextureRec(nebula, nebulae[i].rec, nebulae[i].pos, WHITE);
+      float pad{50};
+      Rectangle nebRec{
+          nebula.pos.x + pad,
+          nebula.pos.y + pad,
+          nebula.rec.width - 2 * pad,
+          nebula.rec.height - 2 * pad};
+      Rectangle scarfyRec{
+          scarfyData.pos.x,
+          scarfyData.pos.y,
+          scarfyData.rec.width,
+          scarfyData.rec.height};
+      if (CheckCollisionRecs(nebRec, scarfyRec))
+      {
+        collision = true;
+      }
     }
 
-    // draw scarfy
-    DrawTextureRec(scarfy, scarfyData.rec, scarfyData.pos, WHITE);
+    if (collision)
+    {
+      // lose the game
+    }
+    else
+    {
+      for (int i = 0; i < sizeOfNebulae; i++)
+      {
+        // draw each nebula
+        DrawTextureRec(nebula, nebulae[i].rec, nebulae[i].pos, WHITE);
+      }
+
+      // draw scarfy
+      DrawTextureRec(scarfy, scarfyData.rec, scarfyData.pos, WHITE);
+    }
+
     if (IsKeyPressed(KEY_SPACE) && !isInAir)
     {
       velocity += jumpVel;
