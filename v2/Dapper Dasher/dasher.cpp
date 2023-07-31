@@ -83,7 +83,9 @@ int main()
   float bgX{};
 
   Texture2D midground = LoadTexture("textures/back-buildings.png");
+  float mgX{};
   Texture2D foreground = LoadTexture("textures/foreground.png");
+  float fgX{};
 
   bool isInAir;
   // jump velocity (pixels/s)
@@ -96,10 +98,24 @@ int main()
     BeginDrawing();
     ClearBackground(WHITE);
 
+    // scroll the background
     bgX -= 20 * dT;
     if (bgX <= -background.width * 2)
     {
       bgX = 0.0;
+    }
+
+    // scroll the midground
+    mgX -= 40 * dT;
+    if (mgX <= -midground.width * 2)
+    {
+      mgX = 0;
+    }
+    // scroll the foreground
+    fgX -= 80 * dT;
+    if (fgX <= -foreground.width * 2)
+    {
+      fgX = 0;
     }
 
     // draw the background
