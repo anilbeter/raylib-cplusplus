@@ -130,13 +130,13 @@ int main()
     // draw the midground
     Vector2 mg1Pos{mgX, 0.0};
     DrawTextureEx(midground, mg1Pos, 0.0, 2.0, WHITE);
-    Vector2 mg2Pos{mgX + background.width * 2, 0.0};
+    Vector2 mg2Pos{mgX + midground.width * 2, 0.0};
     DrawTextureEx(midground, mg2Pos, 0.0, 2.0, WHITE);
 
     // draw the foreground
     Vector2 fg1Pos{fgX, 0.0};
     DrawTextureEx(foreground, fg1Pos, 0.0, 2.0, WHITE);
-    Vector2 fg2Pos{fgX + background.width * 2, 0.0};
+    Vector2 fg2Pos{fgX + foreground.width * 2, 0.0};
     DrawTextureEx(foreground, fg2Pos, 0.0, 2.0, WHITE);
 
     // perform ground check
@@ -194,6 +194,12 @@ int main()
     if (collision)
     {
       // lose the game
+      DrawText("GAME OVER!", windowDimensions[0] / 2 - 150, windowDimensions[1] / 2, 48, RED);
+    }
+    else if (scarfyData.pos.x >= finishLine)
+    {
+      // win the game
+      DrawText("You Win!", windowDimensions[0] / 2 - 100, windowDimensions[1] / 2, 48, RED);
     }
     else
     {
