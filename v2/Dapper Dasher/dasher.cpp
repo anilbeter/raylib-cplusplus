@@ -82,6 +82,9 @@ int main()
   Texture2D background = LoadTexture("textures/far-buildings.png");
   float bgX{};
 
+  Texture2D midground = LoadTexture("textures/back-buildings.png");
+  Texture2D foreground = LoadTexture("textures/foreground.png");
+
   bool isInAir;
   // jump velocity (pixels/s)
   const int jumpVel = -600;
@@ -172,5 +175,7 @@ int main()
   UnloadTexture(scarfy);
   UnloadTexture(nebula);
   UnloadTexture(background);
+  UnloadTexture(foreground);
+  UnloadTexture(midground);
   CloseWindow();
 }
