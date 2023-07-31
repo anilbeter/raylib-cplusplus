@@ -124,7 +124,17 @@ int main()
     Vector2 bg2Pos{bgX + background.width * 2, 0.0}; // 2 ile çarpıyorum çünkü DrawTextureEx de scale i 2 olarak aldım (2.0)
     DrawTextureEx(background, bg2Pos, 0.0, 2.0, WHITE);
 
-    // delta time (time since last frame)
+    // draw the midground
+    Vector2 mg1Pos{mgX, 0.0};
+    DrawTextureEx(midground, mg1Pos, 0.0, 2.0, WHITE);
+    Vector2 mg2Pos{mgX + background.width * 2, 0.0};
+    DrawTextureEx(midground, mg2Pos, 0.0, 2.0, WHITE);
+
+    // draw the foreground
+    Vector2 fg1Pos{fgX, 0.0};
+    DrawTextureEx(foreground, fg1Pos, 0.0, 2.0, WHITE);
+    Vector2 fg2Pos{fgX + background.width * 2, 0.0};
+    DrawTextureEx(foreground, fg2Pos, 0.0, 2.0, WHITE);
 
     // perform ground check
     if (isOnGround(scarfyData, windowDimensions[1]))
